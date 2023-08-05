@@ -1,5 +1,5 @@
 Belgrano Informatica 
-***Hard Store***
+*** Hard Store ***
 
 # Backend
 
@@ -19,6 +19,9 @@ Este sitio que con mucho esfuerzo y dedicacion estoy creando , yo **Quimey Alejo
     - Integracion de la API Check out PRO de Mercado Pago (detalles a resolver)
     - Back conectado con el front
 
+# Inicializacion
+ -npm install
+ -npm start
 
 
 
