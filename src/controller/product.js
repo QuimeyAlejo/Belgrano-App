@@ -172,29 +172,6 @@ const getAllProductsFromAPI = async(res,)  => {
     throw error;
   }
 
-// try {
-//   const response = await axios.get('https://belgranoapiproducts-964d4-default-rtdb.firebaseio.com/.json');
-
-//   const products = response.data;
-
-//   // Extraer los campos necesarios
-//   const extractedData = Object.keys(products).map((key) => {
-//     const { brand, Model, descripcion, image, price, product } = products[key];
-//     return {
-//       brand,
-//       Model,
-//       descripcion,
-//       image,
-//       price,
-//       product
-//     };
-//   });
-//   // console.log(extractedData, "Info de la api")
-//   return res.send(extractedData );
-// } catch (error) {
-//   console.error('Error al obtener los datos de la API:', error);
-//   throw error;
-// }
 }
 
 
@@ -243,7 +220,7 @@ const getAllProductsOrByQuery = async (req, res) => {
         if (filteredProducts.length > 0) {
           return res.status(200).json(filteredProducts);
         } else {
-          return res.status(404).json({ message: 'Product not found' });
+          return res.status(404).json({ message: 'Product not found model' });
         }
       } else {
         return res.status(200).json(allProducts);
@@ -254,6 +231,30 @@ const getAllProductsOrByQuery = async (req, res) => {
   };
   
 
+  const getAllProductsOrByBrand = async (req, res) => {
+    try {
+      const name = req.query.name;
+      const allProducts = await getAllProducts();
+      
+      if (name) {
+        const filteredProducts = allProducts.filter(product =>
+          (product.brand && product.brand.includes(name))
+        );
+  
+        if (filteredProducts.length > 0) {
+          return res.status(200).json(filteredProducts);
+        } else {
+          return res.status(404).json({ message: 'Product not found brand' });
+        }
+      } else {
+        return res.status(200).json(allProducts);
+      }
+    } catch (error) {
+      return res.status(500).json({ error: error.message });
+    }
+  };
+  
+  
 
 // Función para obtener un producto por ID
 const getProductByID = async (req, res) => {
@@ -305,6 +306,7 @@ module.exports = {getAllProductsFromAPI,
   getAllProducts,
   getAllProductsOrByQuery,
   getProductByID,
-  createProduct};
+  createProduct,
+  getAllProductsOrByBrand};
 
 
