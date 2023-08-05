@@ -4,7 +4,7 @@
   "description": "belgrano backend",
   "main": "index.js",
   "scripts": {
-    "start": "node ./src/index.js"
+    "start": "nodemon ./src/index.js"
   },
   "keywords": [
     "ES"

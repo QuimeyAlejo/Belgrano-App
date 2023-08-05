@@ -8,29 +8,33 @@ mercadopago.configure({
 });
 const mercadoPago = async (req,res)=>{
   const prod = req.body
- let preference = {
-  items: [{
-    id:123,
-    title: prod.title,
-    currency_id:'ARS',
-    picture_url:prod.imagen,
-    description:prod.description,
-    category_id:"art",
-    quantity: 1,
-    unit_price: prod.price
-  }],
-  back_urls: {
-           success:"http://localhost3000/success" ,
-        failure:"" ,
-         pending: ""
-        },
-       auto_return: "approved",
+  let preference = {
+    items: [
+      {
+        id: 123,
+        title: prod.title,
+        currency_id: "ARS",
+        picture_url: prod.image,
+        description: prod.description,
+        category_id: "art",
+        quantity: 1,
+        unit_price: 1,
+      },
+      
+    ],
+    back_urls: {
+      success: "http://localhost:3000", // Cambia la URL a la correcta
+      failure: "",
+      pending: "",
+    },
+    auto_return: "approved", // Corrige el nombre
     binary_mode: true,
-       };
-       mercadopago.preferences.create(preference).then((response)=>
-       res.status(200).send({response})).catch((error)=>
-         res.status(400).send({error:error.message})) 
- 
+  };
+
+  mercadopago.preferences
+    .create(preference)
+    .then((response) => res.status(200).send({ response }))
+    .catch((error) => res.status(400).send({ error: error.message }));
 }
 
 module.exports = mercadoPago

@@ -19,7 +19,7 @@ const {
   getProductsForPrice,
 } = require("../src/Routes/filters.js");
 const { conn } = require("./db");
-// const mp = require ('../src/Services/mercadoPago.js')
+const mp = require ('../src/Services/mercadoPago.js')
 const mercadopago = require("mercadopago");
 
 const corsOptions = {
@@ -36,7 +36,7 @@ app.get("/", function (req, res) {
   });
 });
 
-// app.post('/payment',mp)
+app.post('/payment',mp)
 app.get("/products", getAllProductsOrByQuery);
 app.get("/products/brand", getAllProductsOrByBrand);
 app.get("/products/:tipo", getProductForTipo);
@@ -46,41 +46,42 @@ app.post("/products", createProduct);
 
 //-----------------------------------------------------------------------------------
 
-mercadopago.configure({
-  access_token:
-    "APP_USR-426931006695176-061519-6eb17b170e45868a2732d843be8a1205-132670730",
-});
+// mercadopago.configure({
+//   access_token:
+//     "APP_USR-426931006695176-061519-6eb17b170e45868a2732d843be8a1205-132670730",
+// });
 
-app.post("/payment", (req, res) => {
-  // res.status(200).send('funciona')
-  const prod = req.body;
-  let preference = {
-    items: [
-      {
-        id: 123,
-        title: prod.title,
-        currency_id: "ARS",
-        picture_url: prod.image,
-        description: prod.description,
-        category_id: "art",
-        quantity: 1,
-        unit_price: prod.price,
-      },
-    ],
-    back_urls: {
-      success: "http://localhost:3000", // Cambia la URL a la correcta
-      failure: "",
-      pending: "",
-    },
-    auto_return: "approved", // Corrige el nombre
-    binary_mode: true,
-  };
+// app.post("/payment", (req, res) => {
+//   // res.status(200).send('funciona')
+//   const prod = req.body;
+//   let preference = {
+//     items: [
+//       {
+//         id: 123,
+//         title: prod.title,
+//         currency_id: "ARS",
+//         picture_url: prod.image,
+//         description: prod.description,
+//         category_id: "art",
+//         quantity: 1,
+//         unit_price: 1,
+//       },
+      
+//     ],
+//     back_urls: {
+//       success: "http://localhost:3000", // Cambia la URL a la correcta
+//       failure: "",
+//       pending: "",
+//     },
+//     auto_return: "approved", // Corrige el nombre
+//     binary_mode: true,
+//   };
 
-  mercadopago.preferences
-    .create(preference)
-    .then((response) => res.status(200).send({ response }))
-    .catch((error) => res.status(400).send({ error: error.message }));
-});
+//   mercadopago.preferences
+//     .create(preference)
+//     .then((response) => res.status(200).send({ response }))
+//     .catch((error) => res.status(400).send({ error: error.message }));
+// });
 
 
 app.post("/uploadImage", (req, res) => {
