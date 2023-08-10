@@ -18,7 +18,7 @@ const mercadoPago = async (req,res)=>{
         description: prod.description,
         category_id: "art",
         quantity: 1,
-        unit_price: 1,
+        unit_price: prod.price,
       },
       
     ],

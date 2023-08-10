@@ -23,9 +23,11 @@ const mp = require ('../src/Services/mercadoPago.js')
 const mercadopago = require("mercadopago");
 
 const corsOptions = {
-  origin: "http://127.0.0.1:5173",
-  // Reemplaza con tu origen frontend|| 'https://belgranoinformatica.vercel.app/'
-};
+  origin: "http://127.0.0.1:5173"  ,
+  // origin: "http://localhost:5173",
+  // origin :'https://belgranoinformatica.vercel.app'
+}; 
+
 
 app.use(express.urlencoded({ limit: "50mb", extended: true }));
 app.use(express.json({ limit: "50mb" }));
